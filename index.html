@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Silicon Valley Bizhangi | Intelligent Condition Monitoring & AI</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    :root {
+      --navy: #0b1e3d;
+      --navy-mid: #122347;
+      --blue-glow: rgba(59,130,246,0.35);
+      --crimson: #dc2626;
+      --crimson-hover: #b91c1c;
+    }
+
+    * { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: #fff;
+      color: #0b1e3d;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, .stat-label {
+      font-family: 'Bebas Neue', sans-serif;
+      letter-spacing: 0.04em;
+    }
+
+    /* Floating animation */
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-18px); }
+    }
+    .float-anim { animation: float 5s ease-in-out infinite; }
+
+    /* Fade in on scroll */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Grid noise overlay for hero */
+    .hero-bg {
+      background: linear-gradient(135deg, #040d1a 0%, #0b1e3d 55%, #0f2d5a 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-bg::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(ellipse 60% 50% at 70% 50%, rgba(59,130,246,0.12) 0%, transparent 70%),
+        url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%234b6cb7' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+
+    /* Scan line effect for hero */
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0,0,0,0.03) 2px,
+        rgba(0,0,0,0.03) 4px
+      );
+      pointer-events: none;
+    }
+
+    /* Nav link underline */
+    .nav-link {
+      position: relative;
+      color: #1e3a5f;
+      font-weight: 500;
+      font-size: 0.92rem;
+      transition: color 0.2s;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -2px; left: 0;
+      width: 0; height: 2px;
+      background: var(--crimson);
+      transition: width 0.25s;
+    }
+    .nav-link:hover { color: var(--crimson); }
+    .nav-link:hover::after { width: 100%; }
+
+    /* CTA button */
+    .btn-red {
+      background: var(--crimson);
+      color: #fff;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      border-radius: 6px;
+      padding: 0.6rem 1.4rem;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      border: 2px solid var(--crimson);
+    }
+    .btn-red:hover {
+      background: var(--crimson-hover);
+      border-color: var(--crimson-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(220,38,38,0.35);
+    }
+
+    .btn-outline-white {
+      background: transparent;
+      color: #fff;
+      border: 2px solid rgba(255,255,255,0.6);
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      border-radius: 6px;
+      padding: 0.6rem 1.4rem;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .btn-outline-white:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: #fff;
+    }
+
+    /* Feature list items */
+    .feature-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      color: #94b8d8;
+      font-size: 1rem;
+      font-weight: 400;
+    }
+    .feature-icon {
+      width: 30px; height: 30px;
+      border-radius: 50%;
+      background: rgba(220,38,38,0.15);
+      border: 1px solid rgba(220,38,38,0.4);
+      display: flex; align-items: center; justify-content: center;
+      color: #f87171;
+      font-size: 0.7rem;
+      flex-shrink: 0;
+    }
+
+    /* Stats bar */
+    .stats-bar {
+      background: linear-gradient(90deg, #0b1e3d 0%, #122347 100%);
+    }
+    .stat-number {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.4rem;
+      letter-spacing: 0.03em;
+      background: linear-gradient(135deg, #fff 40%, #93c5fd);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Solution cards */
+    .sol-card {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 2rem;
+      transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .sol-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 4px; height: 0;
+      background: var(--crimson);
+      transition: height 0.3s;
+      border-radius: 0 0 4px 0;
+    }
+    .sol-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 40px rgba(11,30,61,0.12);
+      border-color: #bfdbfe;
+    }
+    .sol-card:hover::before { height: 100%; }
+
+    .sol-icon {
+      width: 52px; height: 52px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem;
+      margin-bottom: 1.2rem;
+    }
+
+    /* AI Advantage */
+    .ai-section {
+      background: linear-gradient(135deg, #f8fafc 0%, #eff6ff 100%);
+    }
+
+    /* Clients */
+    .client-chip {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 1rem 1.5rem;
+      text-align: center;
+      font-weight: 600;
+      color: #64748b;
+      font-size: 0.85rem;
+      letter-spacing: 0.04em;
+      transition: border-color 0.2s, color 0.2s, box-shadow 0.2s;
+      filter: grayscale(1);
+    }
+    .client-chip:hover {
+      filter: grayscale(0);
+      border-color: #93c5fd;
+      color: var(--navy);
+      box-shadow: 0 4px 14px rgba(59,130,246,0.12);
+    }
+
+    /* Footer */
+    footer {
+      background: linear-gradient(135deg, #040d1a 0%, #0b1e3d 100%);
+    }
+
+    .form-input {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 6px;
+      color: #fff;
+      padding: 0.6rem 1rem;
+      width: 100%;
+      outline: none;
+      transition: border-color 0.2s;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+    }
+    .form-input::placeholder { color: rgba(255,255,255,0.35); }
+    .form-input:focus { border-color: rgba(59,130,246,0.6); }
+
+    /* Glow chip */
+    .glow-chip {
+      display: inline-block;
+      background: rgba(220,38,38,0.12);
+      border: 1px solid rgba(220,38,38,0.3);
+      color: #f87171;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border-radius: 100px;
+      padding: 0.25rem 0.9rem;
+      margin-bottom: 1rem;
+    }
+
+    /* Section label */
+    .section-label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--crimson);
+      margin-bottom: 0.5rem;
+    }
+
+    /* Benefit bullets */
+    .benefit-item {
+      display: flex;
+      gap: 0.75rem;
+      align-items: flex-start;
+      margin-bottom: 1rem;
+    }
+    .benefit-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--crimson);
+      margin-top: 7px;
+      flex-shrink: 0;
+    }
+
+    /* Mobile nav toggle */
+    #mobile-menu { display: none; }
+    #mobile-menu.open { display: flex; }
+
+    @media (max-width: 768px) {
+      .hero-cols { flex-direction: column; }
+      .stat-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+  <!-- Three.js Import Map -->
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+        "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+      }
+    }
+  </script>
+
+</head>
+<body>
+
+<!-- ==============================
+     HEADER / NAVIGATION
+     ============================== -->
+<header class="sticky top-0 z-50 bg-white border-b border-slate-100" style="box-shadow: 0 2px 20px rgba(11,30,61,0.08);">
+  <div class="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between gap-6">
+    <!-- Logo -->
+    <a href="#home" class="flex-shrink-0">
+      <img src="assets/images/logo.png" alt="Silicon Valley Bizhangi" class="h-12 w-auto" />
+    </a>
+
+    <!-- Desktop Nav -->
+    <nav class="hidden md:flex items-center gap-8">
+      <a href="#home" class="nav-link">Home</a>
+      <a href="#solutions" class="nav-link">Solutions</a>
+      <a href="#technology" class="nav-link">Technology</a>
+      <a href="#about" class="nav-link">About</a>
+      <a href="#contact" class="nav-link">Contact</a>
+    </nav>
+
+    <!-- CTA -->
+    <div class="flex items-center gap-3">
+      <a href="#contact" class="btn-red hidden md:inline-block text-sm">
+        <i class="fa-solid fa-calendar-check mr-1.5"></i>Request Consultation
+      </a>
+      <!-- Hamburger -->
+      <button id="hamburger" class="md:hidden text-navy text-xl p-2" onclick="toggleMenu()">
+        <i class="fa-solid fa-bars" style="color:#0b1e3d;"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="flex-col px-6 pb-4 gap-3 bg-white border-t border-slate-100">
+    <a href="#home" class="nav-link py-1" onclick="toggleMenu()">Home</a>
+    <a href="#solutions" class="nav-link py-1" onclick="toggleMenu()">Solutions</a>
+    <a href="#technology" class="nav-link py-1" onclick="toggleMenu()">Technology</a>
+    <a href="#about" class="nav-link py-1" onclick="toggleMenu()">About</a>
+    <a href="#contact" class="nav-link py-1" onclick="toggleMenu()">Contact</a>
+    <a href="#contact" class="btn-red inline-block text-sm text-center" onclick="toggleMenu()">
+      Request Consultation
+    </a>
+  </div>
+</header>
+
+<!-- ==============================
+     HERO SECTION
+     ============================== -->
+<section id="home" class="hero-bg relative z-10">
+  <div class="max-w-7xl mx-auto px-6 py-24 md:py-32 flex flex-col md:flex-row items-center gap-12 hero-cols relative z-10">
+
+    <!-- Left: Text -->
+    <div class="flex-1 fade-in">
+      <div class="glow-chip"><i class="fa-solid fa-microchip mr-1.5"></i>AI-Powered Industrial Intelligence</div>
+      <h1 class="text-5xl md:text-6xl lg:text-7xl text-white leading-none mb-6" style="line-height:1.05;">
+        Intelligent<br/>
+        <span style="background: linear-gradient(90deg, #fff 0%, #93c5fd 60%, #dc2626 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+          Condition Monitoring
+        </span><br/>
+        &amp; 3D PD Localization
+      </h1>
+
+      <!-- Feature list -->
+      <div class="flex flex-col gap-3 mb-10">
+        <div class="feature-item">
+          <div class="feature-icon"><i class="fa-solid fa-signal"></i></div>
+          <span>Wideband UHF Sensing</span>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon"><i class="fa-solid fa-brain"></i></div>
+          <span>AI-Driven Signal Processing</span>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon"><i class="fa-solid fa-crosshairs"></i></div>
+          <span>Precision 3D Fault Localization</span>
+        </div>
+      </div>
+
+      <!-- Buttons -->
+      <div class="flex flex-wrap gap-4">
+        <a href="#solutions" class="btn-red text-sm"><i class="fa-solid fa-arrow-right mr-1.5"></i>Explore Solutions</a>
+        <a href="#technology" class="btn-outline-white text-sm">View Technology</a>
+      </div>
+    </div>
+
+    <!-- Right: Hero Image -->
+    <div class="flex-1 flex justify-center fade-in" style="animation-delay:0.2s;">
+      <img
+        src="assets/images/transformer-ai.png"
+        alt="3D Transformer Hologram"
+        class="w-full h-auto max-w-lg mx-auto float-anim"
+        style="filter: drop-shadow(0 0 40px rgba(59,130,246,0.35)) drop-shadow(0 0 80px rgba(59,130,246,0.15));"
+      />
+    </div>
+  </div>
+
+  <!-- Bottom edge fade -->
+  <div style="position:absolute; bottom:0; left:0; right:0; height:80px; background: linear-gradient(to top, #fff, transparent); pointer-events:none;"></div>
+</section>
+
+<!-- ==============================
+     STATS & TRUST BAR
+     ============================== -->
+<section class="stats-bar py-14">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 stat-grid">
+      <div class="text-center fade-in">
+        <div class="stat-number">100+</div>
+        <div class="text-slate-400 text-sm font-medium uppercase tracking-widest mt-1">Power Plant Tests</div>
+      </div>
+      <div class="text-center fade-in" style="animation-delay:0.1s;">
+        <div class="stat-number">20+</div>
+        <div class="text-slate-400 text-sm font-medium uppercase tracking-widest mt-1">Facilities Monitored</div>
+      </div>
+      <div class="text-center fade-in" style="animation-delay:0.2s;">
+        <div class="stat-number">2020</div>
+        <div class="text-slate-400 text-sm font-medium uppercase tracking-widest mt-1">Expertise Since</div>
+      </div>
+      <div class="text-center fade-in" style="animation-delay:0.3s;">
+        <div class="stat-number" style="font-size:1.6rem; padding-top:0.4rem;">MAPNA</div>
+        <div class="text-slate-400 text-sm font-medium uppercase tracking-widest mt-1">Group Partner</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==============================
+     OUR SOLUTIONS
+     ============================== -->
+<section id="solutions" class="py-24 bg-slate-50">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center mb-16 fade-in">
+      <div class="section-label">What We Offer</div>
+      <h2 class="text-5xl md:text-6xl" style="color:#0b1e3d;">Our Solutions</h2>
+      <p class="text-slate-500 mt-4 max-w-2xl mx-auto text-lg leading-relaxed">
+        End-to-end diagnostic and monitoring systems engineered for high-voltage power infrastructure.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+      <!-- Card 1 -->
+      <div class="sol-card fade-in">
+        <div class="sol-icon" style="background: rgba(29,78,216,0.1);">
+          <i class="fa-solid fa-wave-square text-blue-700"></i>
+        </div>
+        <h3 class="text-2xl mb-3" style="color:#0b1e3d;">Online &amp; Offline PD Monitoring</h3>
+        <p class="text-slate-500 leading-relaxed">
+          Comprehensive health assessment of electrical machines using real-time partial discharge acquisition. Detect insulation degradation before failure strikes.
+        </p>
+        <a href="#contact" class="inline-flex items-center gap-2 mt-6 text-sm font-semibold" style="color:var(--crimson);">
+          Learn More <i class="fa-solid fa-arrow-right text-xs"></i>
+        </a>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="sol-card fade-in" style="animation-delay:0.15s;">
+        <div class="sol-icon" style="background: rgba(220,38,38,0.1);">
+          <i class="fa-solid fa-robot text-red-600"></i>
+        </div>
+        <h3 class="text-2xl mb-3" style="color:#0b1e3d;">Predictive Maintenance</h3>
+        <p class="text-slate-500 leading-relaxed">
+          Utilizing deep learning to identify complex failure patterns from multivariate sensor streams — reducing unplanned outages and extending asset lifespan.
+        </p>
+        <a href="#contact" class="inline-flex items-center gap-2 mt-6 text-sm font-semibold" style="color:var(--crimson);">
+          Learn More <i class="fa-solid fa-arrow-right text-xs"></i>
+        </a>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="sol-card fade-in" style="animation-delay:0.3s;">
+        <div class="sol-icon" style="background: rgba(15,118,110,0.1);">
+          <i class="fa-solid fa-microchip text-teal-700"></i>
+        </div>
+        <h3 class="text-2xl mb-3" style="color:#0b1e3d;">Custom Hardware</h3>
+        <p class="text-slate-500 leading-relaxed">
+          Design and manufacturing of advanced testing equipment — including Rotor Shorted Turn detectors — precision-engineered for demanding industrial environments.
+        </p>
+        <a href="#contact" class="inline-flex items-center gap-2 mt-6 text-sm font-semibold" style="color:var(--crimson);">
+          Learn More <i class="fa-solid fa-arrow-right text-xs"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==============================
+     THE AI ADVANTAGE
+     ============================== -->
+<section id="technology" class="py-24 ai-section" style="background: linear-gradient(135deg, #eff6ff 0%, #f8fafc 100%);">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="flex flex-col md:flex-row gap-16 items-center">
+
+      <!-- Left: Visual Panel -->
+      <div class="flex-1 fade-in">
+        <div style="background: linear-gradient(135deg, #0b1e3d 0%, #1e3a5f 100%); border-radius: 16px; padding: 2.5rem; position: relative; overflow: hidden; box-shadow: 0 30px 60px rgba(11,30,61,0.2);">
+          <!-- Background grid pattern -->
+          <div style="position:absolute; inset:0; background-image: radial-gradient(rgba(59,130,246,0.12) 1px, transparent 1px); background-size: 28px 28px; border-radius:16px;"></div>
+          <div style="position:relative; z-index:1;">
+            <div class="glow-chip mb-4"><i class="fa-solid fa-server mr-1.5"></i>Compute Infrastructure</div>
+            <div class="text-6xl font-bold text-white mb-2" style="font-family:'Bebas Neue',sans-serif; letter-spacing:0.05em; font-size:4rem;">NVIDIA H100</div>
+            <div class="text-blue-300 text-sm mb-8 uppercase tracking-widest font-medium">Dedicated AI Research Lab</div>
+            <div class="grid grid-cols-2 gap-4">
+              <div style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius:10px; padding:1rem; text-align:center;">
+                <div style="font-family:'Bebas Neue',sans-serif; font-size:1.8rem; color:#93c5fd;">80 GB</div>
+                <div style="font-size:0.72rem; color:#64748b; text-transform:uppercase; letter-spacing:0.1em; margin-top:2px;">HBM3 Memory</div>
+              </div>
+              <div style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius:10px; padding:1rem; text-align:center;">
+                <div style="font-family:'Bebas Neue',sans-serif; font-size:1.8rem; color:#f87171;">~1ms</div>
+                <div style="font-size:0.72rem; color:#64748b; text-transform:uppercase; letter-spacing:0.1em; margin-top:2px;">PD Identification</div>
+              </div>
+              <div style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius:10px; padding:1rem; text-align:center;">
+                <div style="font-family:'Bebas Neue',sans-serif; font-size:1.8rem; color:#a3e635;">UHF</div>
+                <div style="font-size:0.72rem; color:#64748b; text-transform:uppercase; letter-spacing:0.1em; margin-top:2px;">Wideband Sensing</div>
+              </div>
+              <div style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius:10px; padding:1rem; text-align:center;">
+                <div style="font-family:'Bebas Neue',sans-serif; font-size:1.8rem; color:#c084fc;">3D</div>
+                <div style="font-size:0.72rem; color:#64748b; text-transform:uppercase; letter-spacing:0.1em; margin-top:2px;">Fault Localization</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Text -->
+      <div class="flex-1 fade-in" style="animation-delay:0.2s;" id="about">
+        <div class="section-label">Why Silicon Valley Bizhangi</div>
+        <h2 class="text-5xl md:text-6xl mb-6" style="color:#0b1e3d; line-height:1.0;">Unrivaled<br/>Processing Power</h2>
+        <p class="text-slate-600 text-lg leading-relaxed mb-8">
+          We operate a dedicated <strong>AI Research Laboratory</strong> equipped with <strong>NVIDIA H100</strong> processors. This allows us to process vast amounts of Wideband UHF data and identify complex partial discharge patterns in milliseconds — a capability unmatched in the Iranian power sector.
+        </p>
+
+        <div class="flex flex-col gap-1">
+          <div class="benefit-item">
+            <div class="benefit-dot"></div>
+            <div class="text-slate-700 leading-relaxed"><strong>Reduce overhaul costs</strong> through targeted maintenance planning based on actual insulation condition rather than scheduled intervals.</div>
+          </div>
+          <div class="benefit-item">
+            <div class="benefit-dot"></div>
+            <div class="text-slate-700 leading-relaxed"><strong>Prevent forced outages</strong> by identifying fault patterns weeks before catastrophic failure, ensuring uninterrupted grid stability.</div>
+          </div>
+          <div class="benefit-item">
+            <div class="benefit-dot"></div>
+            <div class="text-slate-700 leading-relaxed"><strong>Expert multidisciplinary team</strong> of high-voltage engineers and AI researchers delivering field-proven, academically grounded results.</div>
+          </div>
+        </div>
+
+        <a href="#contact" class="btn-red inline-block mt-8 text-sm">
+          <i class="fa-solid fa-flask mr-1.5"></i>Connect with Our Team
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- 3D Model Section -->
+<section id="transformer-model" style="padding: 80px 20px; text-align: center; background: #0d0d2b;">
+  <p style="color: #00d4ff; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 10px;">3D Visualization</p>
+  <h2 style="color: #ffffff; font-size: 2rem; margin-bottom: 40px;">High Voltage Power Transformer</h2>
+
+  <!-- 3D Transformer Hologram Container -->
+  <div id="transformer-3d-container" style="width: 100%; height: 500px; border-radius: 12px; overflow: hidden; position: relative; background-color: #020202; margin: 0; padding: 0;"></div>
+
+    
+  
+
+</section>
+
+<!-- ==============================
+     OUR CLIENTS
+     ============================== -->
+<section class="py-24 bg-white">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center mb-14 fade-in">
+      <div class="section-label">Trusted Partners</div>
+      <h2 class="text-5xl md:text-6xl" style="color:#0b1e3d;">Our Clients</h2>
+      <p class="text-slate-500 mt-4 max-w-xl mx-auto">
+        We are proud to serve the leading organizations shaping Iran's power infrastructure.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 fade-in">
+      <div class="client-chip">
+        <i class="fa-solid fa-industry mb-3 block text-2xl text-slate-400"></i>
+        MAPNA Pars Generator
+      </div>
+      <div class="client-chip">
+        <i class="fa-solid fa-bolt mb-3 block text-2xl text-slate-400"></i>
+        TAVANIR
+      </div>
+      <div class="client-chip">
+        <i class="fa-solid fa-network-wired mb-3 block text-2xl text-slate-400"></i>
+        Iran Grid Management Co.
+      </div>
+      <div class="client-chip">
+        <i class="fa-solid fa-fire-flame-curved mb-3 block text-2xl text-slate-400"></i>
+        Thermal Power Plants Holding
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==============================
+     FOOTER
+     ============================== -->
+<footer id="contact" class="py-20">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-16">
+
+      <!-- Brand -->
+      <div class="fade-in">
+        <img src="assets/images/logo.jpg" alt="Silicon Valley Bizhangi" class="h-12 w-auto mb-5 opacity-90" />
+        <p class="text-slate-400 text-sm leading-relaxed mb-6">
+          Engineering intelligence for the power sector. Advanced AI-driven condition monitoring, 3D PD localization, and predictive maintenance systems.
+        </p>
+        <div class="flex gap-4">
+          <a href="#" class="w-9 h-9 rounded-full flex items-center justify-center text-slate-400 hover:text-white transition-colors" style="border: 1px solid rgba(255,255,255,0.12);">
+            <i class="fa-brands fa-linkedin text-sm"></i>
+          </a>
+          <a href="#" class="w-9 h-9 rounded-full flex items-center justify-center text-slate-400 hover:text-white transition-colors" style="border: 1px solid rgba(255,255,255,0.12);">
+            <i class="fa-brands fa-twitter text-sm"></i>
+          </a>
+          <a href="#" class="w-9 h-9 rounded-full flex items-center justify-center text-slate-400 hover:text-white transition-colors" style="border: 1px solid rgba(255,255,255,0.12);">
+            <i class="fa-brands fa-youtube text-sm"></i>
+          </a>
+        </div>
+
+        <!-- Contact Info -->
+        <div class="mt-8 flex flex-col gap-3">
+          <div class="flex items-center gap-3 text-slate-400 text-sm">
+            <i class="fa-solid fa-location-dot text-red-500 w-4 text-center"></i>
+            Qom, Iran — Science & Technology Park
+          </div>
+          <a href="mailto:mahdibizhangi@gmail.com" class="flex items-center gap-3 text-slate-400 text-sm hover:text-white transition-colors">
+            <i class="fa-solid fa-envelope text-red-500 w-4 text-center"></i>
+            mahdibizhangi@gmail.com
+          </a>
+          <a href="tel:+982100000000" class="flex items-center gap-3 text-slate-400 text-sm hover:text-white transition-colors">
+            <i class="fa-solid fa-phone text-red-500 w-4 text-center"></i>
+            +98 (919) 614-2215
+          </a>
+        </div>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="fade-in" style="animation-delay:0.1s;">
+        <h4 class="text-white font-semibold mb-6 uppercase tracking-widest text-xs">Quick Links</h4>
+        <div class="flex flex-col gap-3">
+          <a href="#home" class="text-slate-400 hover:text-white text-sm transition-colors flex items-center gap-2"><i class="fa-solid fa-chevron-right text-red-500 text-xs"></i>Home</a>
+          <a href="#solutions" class="text-slate-400 hover:text-white text-sm transition-colors flex items-center gap-2"><i class="fa-solid fa-chevron-right text-red-500 text-xs"></i>Solutions</a>
+          <a href="#technology" class="text-slate-400 hover:text-white text-sm transition-colors flex items-center gap-2"><i class="fa-solid fa-chevron-right text-red-500 text-xs"></i>Technology</a>
+          <a href="#about" class="text-slate-400 hover:text-white text-sm transition-colors flex items-center gap-2"><i class="fa-solid fa-chevron-right text-red-500 text-xs"></i>About Us</a>
+          <a href="#contact" class="text-slate-400 hover:text-white text-sm transition-colors flex items-center gap-2"><i class="fa-solid fa-chevron-right text-red-500 text-xs"></i>Contact</a>
+        </div>
+      </div>
+
+      <!-- Contact Form -->
+      <div class="fade-in" style="animation-delay:0.2s;">
+        <h4 class="text-white font-semibold mb-6 uppercase tracking-widest text-xs">Request a Consultation</h4>
+        <form onsubmit="handleForm(event)" class="flex flex-col gap-3">
+          <input type="text" placeholder="Full Name" class="form-input" required />
+          <input type="email" placeholder="Work Email" class="form-input" required />
+          <input type="text" placeholder="Organization / Company" class="form-input" />
+          <textarea rows="3" placeholder="Briefly describe your challenge..." class="form-input" style="resize:vertical;"></textarea>
+          <button type="submit" class="btn-red w-full text-center mt-1 text-sm">
+            <i class="fa-solid fa-paper-plane mr-1.5"></i>Send Message
+          </button>
+        </form>
+        <div id="form-success" style="display:none;" class="mt-3 text-sm text-green-400 flex items-center gap-2">
+          <i class="fa-solid fa-circle-check"></i> Message sent! We'll be in touch soon.
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom bar -->
+    <div class="border-t mt-16 pt-8 flex flex-col md:flex-row justify-between items-center gap-4" style="border-color: rgba(255,255,255,0.08);">
+      <p class="text-slate-500 text-sm">
+        © 2026 Silicon Valley Bizhangi. All rights reserved.
+      </p>
+      <div class="flex gap-6 text-xs text-slate-600">
+        <a href="#" class="hover:text-slate-400 transition-colors">Privacy Policy</a>
+        <a href="#" class="hover:text-slate-400 transition-colors">Terms of Service</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ==============================
+     SCRIPTS
+     ============================== -->
+<script>
+  // Fade-in on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // Mobile menu toggle
+  function toggleMenu() {
+    const menu = document.getElementById('mobile-menu');
+    menu.classList.toggle('open');
+  }
+
+  // Form submit mock
+  function handleForm(e) {
+    e.preventDefault();
+    e.target.reset();
+    document.getElementById('form-success').style.display = 'flex';
+    setTimeout(() => {
+      document.getElementById('form-success').style.display = 'none';
+    }, 5000);
+  }
+</script>
+
+<script type="module">
+    import * as THREE from 'three';
+    import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+    import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+    import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+    import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+
+    // --------------------------------------------------------
+    // SETUP: CONTAINER, SCENE, CAMERA, RENDERER
+    // --------------------------------------------------------
+    const container = document.getElementById('transformer-3d-container');
+    let width = container.clientWidth || window.innerWidth;
+    let height = container.clientHeight || 500;
+
+    const scene = new THREE.Scene();
+
+    // Isometric perspective
+    const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 1, 1000);
+    camera.position.set(18, 10, 22);
+
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setSize(width, height);
+    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.setClearColor(0x020202, 1.0);
+    
+    // CRITICAL: Append to specific container, NOT document.body
+    container.appendChild(renderer.domElement);
+
+    // --------------------------------------------------------
+    // POST-PROCESSING: SUBTLE HOLOGRAPHIC BLOOM
+    // --------------------------------------------------------
+    const composer = new EffectComposer(renderer);
+    const renderPass = new RenderPass(scene, camera);
+    composer.addPass(renderPass);
+
+    // Bloom: strength: 0.15, radius: 0.4, threshold: 0.3
+    const bloomPass = new UnrealBloomPass(new THREE.Vector2(width, height), 0.15, 0.4, 0.3);
+    composer.addPass(bloomPass);
+
+    // --------------------------------------------------------
+    // HOLOGRAPHIC MATERIALS
+    // --------------------------------------------------------
+    // Material A (Outer Shell & Structure)
+    const matA = new THREE.MeshBasicMaterial({
+        color: 0x0088ff,
+        wireframe: true,
+        transparent: true,
+        opacity: 0.15,
+        blending: THREE.NormalBlending,
+        depthWrite: false
+    });
+
+    // Material B (Inner Active Coils)
+    const matB = new THREE.MeshBasicMaterial({
+        color: 0xff0055,
+        wireframe: true,
+        transparent: true,
+        opacity: 0.4,
+        blending: THREE.AdditiveBlending
+    });
+
+    // Material C (Corona Rings/Accents)
+    const matC = new THREE.MeshBasicMaterial({
+        color: 0x00ffff,
+        wireframe: false,
+        transparent: true,
+        opacity: 0.6,
+        blending: THREE.AdditiveBlending
+    });
+
+    // --------------------------------------------------------
+    // GEOMETRIC STRUCTURE: 400 kV POWER TRANSFORMER
+    // --------------------------------------------------------
+    const transformerMaster = new THREE.Group();
+    scene.add(transformerMaster);
+
+    const tankWidth = 14;
+    const tankHeight = 10;
+    const tankDepth = 8;
+    const tankYOffset = tankHeight / 2; // Y = 5
+    const phaseXPositions = [-4.5, 0, 4.5];
+
+    // Part A: Main Tank with Stiffener Ribs
+    const tankGeo = new THREE.BoxGeometry(tankWidth, tankHeight, tankDepth, 14, 10, 8);
+    const mainTank = new THREE.Mesh(tankGeo, matA);
+    mainTank.position.y = tankYOffset;
+    transformerMaster.add(mainTank);
+
+    const stiffenerGroup = new THREE.Group();
+    // Vertical Stiffeners
+    for (let x = -6; x <= 6; x += 1.5) {
+        const vRibGeo = new THREE.BoxGeometry(0.1, tankHeight, 0.3, 1, 10, 1);
+        const vRibFront = new THREE.Mesh(vRibGeo, matA);
+        vRibFront.position.set(x, tankYOffset, (tankDepth / 2) + 0.05);
+        stiffenerGroup.add(vRibFront);
+
+        const vRibBack = new THREE.Mesh(vRibGeo, matA);
+        vRibBack.position.set(x, tankYOffset, -(tankDepth / 2) - 0.05);
+        stiffenerGroup.add(vRibBack);
+    }
+    // Horizontal Stiffeners
+    for (let y = 1.5; y <= 8.5; y += 2.5) {
+        const hRibGeo = new THREE.BoxGeometry(tankWidth, 0.1, 0.3, 14, 1, 1);
+        const hRibFront = new THREE.Mesh(hRibGeo, matA);
+        hRibFront.position.set(0, y, (tankDepth / 2) + 0.05);
+        stiffenerGroup.add(hRibFront);
+
+        const hRibBack = new THREE.Mesh(hRibGeo, matA);
+        hRibBack.position.set(0, y, -(tankDepth / 2) - 0.05);
+        stiffenerGroup.add(hRibBack);
+    }
+    transformerMaster.add(stiffenerGroup);
+
+    // Part B: 3-Phase Internal Active Part (Coils)
+    phaseXPositions.forEach(x => {
+        const coilGeo = new THREE.CylinderGeometry(1.8, 1.8, 8.5, 24, 12);
+        const coil = new THREE.Mesh(coilGeo, matB);
+        coil.position.set(x, tankYOffset, 0);
+        transformerMaster.add(coil);
+    });
+
+    // Part C: Turrets & 400kV HV Bushings
+    phaseXPositions.forEach((x, index) => {
+        const hvGroup = new THREE.Group();
+        hvGroup.position.set(x, tankHeight, 1.5);
+        
+        // Fan outward along Z-axis by roughly PI/12
+        hvGroup.rotation.x = Math.PI / 12;
+
+        // Turret Base
+        const turretGeo = new THREE.CylinderGeometry(1.5, 1.5, 1.0, 16, 4);
+        const turret = new THREE.Mesh(turretGeo, matA);
+        turret.position.y = 0.5;
+        hvGroup.add(turret);
+
+        // Core Conductor Stem
+        const coreGeo = new THREE.CylinderGeometry(0.35, 0.35, 8.5, 12, 10);
+        const core = new THREE.Mesh(coreGeo, matA);
+        core.position.y = 5.25;
+        hvGroup.add(core);
+
+        // Stacked Ceramic Sheds (Tapering Torus meshes)
+        const numSheds = 14;
+        for (let i = 0; i < numSheds; i++) {
+            const radius = 1.1 - (i * 0.04); 
+            const shedGeo = new THREE.TorusGeometry(radius, 0.08, 6, 24);
+            const shed = new THREE.Mesh(shedGeo, matA);
+            shed.rotation.x = Math.PI / 2;
+            shed.position.y = 1.5 + (i * 0.5); // Stack vertically
+            hvGroup.add(shed);
+        }
+
+        // Corona Rings (Top Tip)
+        const topY = 1.5 + (numSheds * 0.5) + 0.2;
+        const coronaGeo = new THREE.TorusGeometry(0.7, 0.04, 16, 32);
+        const corona = new THREE.Mesh(coronaGeo, matC);
+        corona.rotation.x = Math.PI / 2;
+        corona.position.y = topY;
+        hvGroup.add(corona);
+
+        transformerMaster.add(hvGroup);
+    });
+
+    // Part D: Low-Voltage Bushings (Opposite side of roof)
+    phaseXPositions.forEach(x => {
+        const lvGroup = new THREE.Group();
+        lvGroup.position.set(x, tankHeight, -2.5);
+
+        const lvTurretGeo = new THREE.CylinderGeometry(0.7, 0.7, 0.5, 12);
+        const lvTurret = new THREE.Mesh(lvTurretGeo, matA);
+        lvTurret.position.y = 0.25;
+        lvGroup.add(lvTurret);
+
+        const lvCoreGeo = new THREE.CylinderGeometry(0.2, 0.2, 3, 8, 4);
+        const lvCore = new THREE.Mesh(lvCoreGeo, matA);
+        lvCore.position.y = 2.0;
+        lvGroup.add(lvCore);
+
+        for (let i = 0; i < 6; i++) {
+            const lvShedGeo = new THREE.TorusGeometry(0.4, 0.06, 6, 16);
+            const lvShed = new THREE.Mesh(lvShedGeo, matA);
+            lvShed.rotation.x = Math.PI / 2;
+            lvShed.position.y = 1.0 + i * 0.4;
+            lvGroup.add(lvShed);
+        }
+
+        transformerMaster.add(lvGroup);
+    });
+
+    // Part E: Massive Cooling Radiator Banks (ODAF)
+    const radOffsets = [-8, 8];
+    radOffsets.forEach(sideX => {
+        const radGroup = new THREE.Group();
+        radGroup.position.set(sideX, tankYOffset, 0);
+
+        // Thin vertical cooling panels
+        for (let i = 0; i < 12; i++) {
+            const zPos = -3.3 + i * 0.6;
+            const panelGeo = new THREE.BoxGeometry(1.8, 8, 0.1, 2, 8, 1);
+            const panel = new THREE.Mesh(panelGeo, matA);
+            panel.position.set(0, 0, zPos);
+            radGroup.add(panel);
+        }
+
+        // Cooling fans underneath
+        const fanOffsets = [-2, 2];
+        fanOffsets.forEach(fz => {
+            const fanGeo = new THREE.CylinderGeometry(0.8, 0.8, 0.2, 16);
+            const fan = new THREE.Mesh(fanGeo, matA);
+            fan.rotation.x = Math.PI / 2;
+            fan.position.set(0, -4.5, fz);
+            
+            // Fan structural cross blades
+            const bladeGeo = new THREE.BoxGeometry(1.5, 0.05, 0.1);
+            const blade1 = new THREE.Mesh(bladeGeo, matA);
+            const blade2 = new THREE.Mesh(bladeGeo, matA);
+            blade2.rotation.y = Math.PI / 2;
+            fan.add(blade1);
+            fan.add(blade2);
+
+            radGroup.add(fan);
+        });
+
+        transformerMaster.add(radGroup);
+    });
+
+    // Part F: Conservator Tank & Pipework
+    const consGroup = new THREE.Group();
+    
+    // Huge horizontal cylinder high up, offset to the back
+    const consGeo = new THREE.CylinderGeometry(2, 2, 10, 24, 6);
+    const conservator = new THREE.Mesh(consGeo, matA);
+    conservator.rotation.z = Math.PI / 2;
+    conservator.position.set(0, 12, -6);
+    consGroup.add(conservator);
+
+    // Buchholz Pipe connecting main tank to conservator
+    const startPos = new THREE.Vector3(0, tankHeight, -2.5);
+    const endPos = new THREE.Vector3(0, 12, -6);
+    const pipeDir = new THREE.Vector3().subVectors(endPos, startPos);
+    const pipeLen = pipeDir.length();
+    
+    const pipeGeo = new THREE.CylinderGeometry(0.25, 0.25, pipeLen, 12);
+    pipeGeo.translate(0, pipeLen / 2, 0);
+    pipeGeo.rotateX(Math.PI / 2);
+
+    const pipe = new THREE.Mesh(pipeGeo, matA);
+    pipe.position.copy(startPos);
+    pipe.lookAt(endPos);
+    consGroup.add(pipe);
+
+    transformerMaster.add(consGroup);
+
+    // Base Plate Structure
+    const basePlateGeo = new THREE.BoxGeometry(16, 0.4, 10, 8, 1, 8);
+    const basePlate = new THREE.Mesh(basePlateGeo, matA);
+    basePlate.position.set(0, -0.2, 0);
+    transformerMaster.add(basePlate);
+
+    // Center master group dynamically
+    transformerMaster.position.y = -4;
+
+    // --------------------------------------------------------
+    // CONTROLS & RESIZE OBSERVER
+    // --------------------------------------------------------
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.04; // (جدید) این خط باعث می‌شود توقف زوم و چرخش بسیار نرم و با حالت ترمزگیری تدریجی باشد
+    controls.autoRotate = true;
+    controls.autoRotateSpeed = 0.5;
+
+    controls.target.set(0, 5, 0);
+
+    controls.enableZoom = true;
+    controls.zoomSpeed = 0.3; // (جدید) این خط کلید حل مشکل شماست! سرعت زوم را کم می‌کند تا با اسکرول موس، زوم یواش یواش انجام شود
+
+    controls.minDistance = 12;
+    controls.maxDistance = 45;
+
+
+
+
+
+    // Responsive handling via ResizeObserver hooked to the specific DIV
+    const resizeObserver = new ResizeObserver(entries => {
+        for (let entry of entries) {
+            const { width: newWidth, height: newHeight } = entry.contentRect;
+            
+            // Avoid zero-dimension errors during loading/hiding
+            if (newWidth === 0 || newHeight === 0) return;
+
+            camera.aspect = newWidth / newHeight;
+            camera.updateProjectionMatrix();
+            
+            renderer.setSize(newWidth, newHeight);
+            composer.setSize(newWidth, newHeight);
+        }
+    });
+    resizeObserver.observe(container);
+
+    // --------------------------------------------------------
+    // ANIMATION LOOP
+    // --------------------------------------------------------
+    function animate() {
+        requestAnimationFrame(animate);
+        
+        // Update controls (required for damping and autoRotate)
+        controls.update();
+        
+        // CRITICAL: Render via composer for post-processing bloom
+        composer.render();
+    }
+
+    animate();
+</script>
+
+</body>
+</html>
+
